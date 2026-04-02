@@ -313,3 +313,35 @@
 	max-width: 300px;
 	white-space: normal;
 }
+
+/* ------------ PROGRESS BAR ---------------- */
+
+.voyage-slider-progress-container {
+	position: absolute;
+	bottom: 5%;
+	left: 50%;
+	transform: translateX(-50%);
+	width: 200px;
+	height: 3px;
+	background: rgba(255, 255, 255, 0.1);
+	border-radius: 10px;
+	overflow: hidden;
+	z-index: 1000;
+}
+
+.voyage-slider-progress-bar {
+	height: 100%;
+	width: 0%;
+	background: var(--color-primary, #735c00);
+	border-radius: 10px;
+	animation: progress-load 5s linear forwards;
+}
+
+.voyage-slider-progress-bar.paused {
+	animation-play-state: paused;
+}
+
+@keyframes progress-load {
+	0% { width: 0%; }
+	100% { width: 100%; }
+}

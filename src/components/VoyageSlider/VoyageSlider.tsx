@@ -14,12 +14,16 @@ interface VoyageSliderProps {
   slides: SlideData[];
 }
 
+const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
+
 const VoyageSlider: React.FC<VoyageSliderProps> = ({ slides }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
   const rotDeg = useRef({ current: { x: 0, y: 0 }, target: { x: 0, y: 0 } });
   const bgPos = useRef({ current: { x: 0, y: 0 }, target: { x: 0, y: 0 } });
   const rafId = useRef<number | null>(null);
+  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const [isPaused, setIsPaused] = useState(false);
 
   const totalSlides = slides.length;
 
@@ -35,7 +39,21 @@ const VoyageSlider: React.FC<VoyageSliderProps> = ({ slides }) => {
     setCurrentIndex((prev) => getSlideIndex(prev - 1));
   }, [getSlideIndex]);
 
-  const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
+  const resetTimer = useCallback(() => {
+    if (timerRef.current) clearInterval(timerRef.current);
+    timerRef.current = setInterval(() => {
+      if (!isPaused) {
+        setCurrentIndex((prev) => (prev + 1) % slides.length);
+      }
+    }, 5000);
+  }, [slides.length, isPaused]);
+
+  useEffect(() => {
+    resetTimer();
+    return () => {
+      if (timerRef.current) clearInterval(timerRef.current);
+    };
+  }, [resetTimer]);
 
   const updateTilt = useCallback(() => {
     const lerpAmount = 0.06;
@@ -57,13 +75,14 @@ const VoyageSlider: React.FC<VoyageSliderProps> = ({ slides }) => {
         }
       });
     }
-
-    rafId.current = requestAnimationFrame(updateTilt);
   }, []);
 
   useEffect(() => {
-    const frameId = requestAnimationFrame(updateTilt);
-    rafId.current = frameId;
+    const loop = () => {
+      updateTilt();
+      rafId.current = requestAnimationFrame(loop);
+    };
+    rafId.current = requestAnimationFrame(loop);
     return () => {
       if (rafId.current) cancelAnimationFrame(rafId.current);
     };
@@ -93,9 +112,13 @@ const VoyageSlider: React.FC<VoyageSliderProps> = ({ slides }) => {
       className="voyage-slider-root"
       ref={containerRef}
       onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
+      onMouseLeave={() => {
+        handleMouseLeave();
+        setIsPaused(false);
+      }}
+      onMouseEnter={() => setIsPaused(true)}
     >
-      <button className="voyage-slider--btn voyage-slider--btn__prev" onClick={prevSlide}>
+      <button className="voyage-slider--btn voyage-slider--btn__prev" onClick={() => { prevSlide(); resetTimer(); }}>
         <ChevronLeft size={40} stroke="white" />
       </button>
 
@@ -170,9 +193,17 @@ const VoyageSlider: React.FC<VoyageSliderProps> = ({ slides }) => {
         </div>
       </div>
 
-      <button className="voyage-slider--btn voyage-slider--btn__next" onClick={nextSlide}>
+      <button className="voyage-slider--btn voyage-slider--btn__next" onClick={() => { nextSlide(); resetTimer(); }}>
         <ChevronRight size={40} stroke="white" />
       </button>
+
+      {/* Progress Bar Container */}
+      <div className="voyage-slider-progress-container">
+        <div 
+          className={`voyage-slider-progress-bar ${isPaused ? 'paused' : ''}`} 
+          key={currentIndex} // Reset animation on slide change
+        />
+      </div>
     </div>
   );
 };

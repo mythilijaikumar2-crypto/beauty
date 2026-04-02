@@ -69,7 +69,7 @@ const ServiceCard: React.FC<{ title: string; desc: string; icon: React.ReactNode
       </div>
     </div>
     <h3 className="text-xl font-bold text-primary mb-3">{title}</h3>
-    <p className="text-gray-500 text-sm leading-relaxed mb-4">
+    <p className="text-on-surface/60 text-sm leading-relaxed mb-4">
       {desc}
     </p>
   </div>
@@ -178,7 +178,7 @@ const About: React.FC = () => {
           width: 20px;
           height: 20px;
           z-index: 2;
-          background: #eee;
+          background: var(--surface-dim);
         }
 
         .timeline ul li div.item-card {
@@ -346,7 +346,7 @@ const About: React.FC = () => {
               <div className="absolute top-1/2 -right-12 transform -translate-y-1/2 hidden lg:block">
                 <div className="bg-surface/80 backdrop-blur-md p-8 rounded-2xl border border-surface shadow-xl rotate-6 max-w-[200px]">
                   <p className="text-3xl font-serif italic text-primary mb-2">"Beauty is an art form."</p>
-                  <p className="text-xs font-bold text-slate-400 uppercase tracking-widest">— Our Founder</p>
+                  <p className="text-xs font-bold text-on-surface/60 uppercase tracking-widest">— Our Founder</p>
                 </div>
               </div>
             </div>
@@ -359,19 +359,19 @@ const About: React.FC = () => {
                 Crafting Timeless <br />
                 <span className="text-primary">Beauty Stories</span> Since 2010
               </h2>
-              <p className="text-lg text-slate-500 font-sans leading-relaxed">
+              <p className="text-lg text-on-surface/80 font-sans leading-relaxed">
                 Founded on the belief that everyone deserves a sanctuary of self-care,
                 Zentonsz has grown from a boutique salon into a hallmark of luxury
                 and precision in the heart of the city.
               </p>
               <div className="grid grid-cols-2 gap-8 py-4">
                 <div>
-                  <h4 className="text-xl font-serif italic text-slate-900 mb-2">Our Vision</h4>
-                  <p className="text-sm text-slate-400 leading-relaxed">To become the global standard for personalized luxury beauty experiences.</p>
+                  <h4 className="text-xl font-serif italic text-on-surface mb-2">Our Vision</h4>
+                  <p className="text-sm text-on-surface/60 leading-relaxed">To become the global standard for personalized luxury beauty experiences.</p>
                 </div>
                 <div>
-                  <h4 className="text-xl font-serif italic text-slate-900 mb-2">Our Mission</h4>
-                  <p className="text-sm text-slate-400 leading-relaxed">Enhancing natural beauty through innovative techniques and artisanal care.</p>
+                  <h4 className="text-xl font-serif italic text-on-surface mb-2">Our Mission</h4>
+                  <p className="text-sm text-on-surface/60 leading-relaxed">Enhancing natural beauty through innovative techniques and artisanal care.</p>
                 </div>
               </div>
               <div className="pt-6">
@@ -395,7 +395,7 @@ const About: React.FC = () => {
             <span className="text-primary font-bold uppercase tracking-[0.4em] text-[10px] mb-6 block">
               Experience Our Expertise
             </span>
-            <h2 className="text-4xl md:text-6xl font-serif italic text-slate-900 leading-tight">
+            <h2 className="text-4xl md:text-6xl font-serif italic text-on-surface leading-tight">
               Our <span className="text-primary">Exclusive Services</span>
             </h2>
           </div>
@@ -503,10 +503,10 @@ const About: React.FC = () => {
                 <div className="w-20 h-20 bg-primary-container/20 rounded-full flex items-center justify-center mx-auto mb-8 text-primary group-hover:bg-primary group-hover:text-white transition-colors duration-500">
                   {value.icon}
                 </div>
-                <h3 className="text-2xl font-serif italic text-slate-900 mb-4">
+                <h3 className="text-2xl font-serif italic text-on-surface mb-4">
                   {value.title}
                 </h3>
-                <p className="text-slate-500 font-sans leading-relaxed">
+                <p className="text-on-surface/60 font-sans leading-relaxed">
                   {value.desc}
                 </p>
               </motion.div>
@@ -519,11 +519,11 @@ const About: React.FC = () => {
               <div className="space-y-12">
                 <div>
                   <h4 className="text-3xl font-serif italic text-on-surface mb-6 underline decoration-primary-container underline-offset-8">Why Trust Zentonsz?</h4>
-                  <p className="text-slate-500 leading-relaxed mb-8">
+                  <p className="text-on-surface/60 leading-relaxed mb-8">
                     Trust isn't given; it's earned through consistent quality, unwavering discipline, and a genuine passion for beauty. At Zentonsz, every treatment is backed by years of research and the highest safety standards.
                   </p>
                 </div>
-                <div className="space-y-6 text-sm font-bold tracking-widest uppercase text-slate-400">
+                <div className="space-y-6 text-sm font-bold tracking-widest uppercase text-on-surface/60">
                   {[
                     "Medical-Grade Hygiene Standards",
                     "Internationally Certified Master Artists",
@@ -565,7 +565,7 @@ const About: React.FC = () => {
                 Meet Our <span className="text-primary">Master Stylists</span>
               </h2>
             </div>
-            <p className="text-lg text-slate-400 font-sans max-w-sm italic text-right">
+            <p className="text-lg text-on-surface/60 font-sans max-w-sm italic text-right">
               Curated experts committed to translating your inner beauty into an outward reality.
             </p>
           </div>
@@ -614,10 +614,10 @@ const About: React.FC = () => {
                   </div>
                 </div>
                 <div className="text-center">
-                  <h4 className="text-2xl font-serif italic text-slate-900 mb-1">
+                  <h4 className="text-2xl font-serif italic text-on-surface mb-1">
                     {member.name}
                   </h4>
-                  <p className="text-sm font-bold text-slate-400 uppercase tracking-widest">
+                  <p className="text-sm font-bold text-on-surface/60 uppercase tracking-widest">
                     {member.role}
                   </p>
                 </div>
@@ -658,7 +658,7 @@ const About: React.FC = () => {
                 className="p-10 md:p-12 bg-surface-dim/50 rounded-[3rem] border border-primary-container relative group hover:bg-surface hover:shadow-2xl hover:shadow-primary/5 transition-all duration-500"
               >
                 <Quote size={40} className="text-primary-container absolute top-10 right-10 group-hover:text-primary-container/50 transition-colors" />
-                <p className="text-lg md:text-xl font-serif italic text-slate-600 leading-relaxed mb-8 relative z-10">
+                <p className="text-lg md:text-xl font-serif italic text-on-surface/80 leading-relaxed mb-8 relative z-10">
                   "{item.text}"
                 </p>
                 <div>
@@ -693,7 +693,7 @@ const About: React.FC = () => {
                 Begin Your Journey to <br />
                 <span className="text-primary">Unrivaled Radiance</span>
               </h2>
-              <p className="text-lg text-slate-500 font-sans max-w-2xl mx-auto leading-relaxed">
+              <p className="text-lg text-on-surface/60 font-sans max-w-2xl mx-auto leading-relaxed">
                 Experience the perfect blend of artisanal skill and modern luxury.
                 Your transformation awaits at Zentonsz.
               </p>

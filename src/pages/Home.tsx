@@ -220,7 +220,7 @@ const Home: React.FC = () => {
           >
             <div
               style={{ transform: "scale(1.05)" }}
-              className="relative z-10 w-full aspect-square max-w-lg mx-auto rounded-[3rem] overflow-hidden shadow-2xl border-4 border-white flex items-center justify-center p-4 bg-white"
+              className="relative z-10 w-full aspect-square max-w-lg mx-auto rounded-[3rem] overflow-hidden shadow-2xl border-4 border-white flex items-center justify-center p-4 bg-surface"
             >
               <AnimatePresence initial={false}>
                 <motion.img
@@ -255,7 +255,7 @@ const Home: React.FC = () => {
               <h2 className="text-4xl md:text-6xl font-black text-on-surface mb-6 uppercase tracking-tighter italic font-serif">
                 Signature <span className="text-primary">Experiences</span>
               </h2>
-              <p className="text-lg text-slate-500 max-w-2xl mx-auto font-medium leading-relaxed">
+              <p className="text-lg text-on-surface/70 max-w-2xl mx-auto font-medium leading-relaxed">
                 Indulge in our carefully curated selection of premium beauty
                 services designed to elevate your natural charm.
               </p>
@@ -310,17 +310,17 @@ const Home: React.FC = () => {
                     initial={{ x: 50, opacity: 0 }}
                     whileInView={{ x: 0, opacity: 1 }}
                     transition={{ delay: 0.5, duration: 0.8 }}
-                    className="absolute bottom-10 -right-6 bg-white/90 backdrop-blur-xl p-6 rounded-2xl shadow-2xl border border-white"
+                    className="absolute bottom-10 -right-6 bg-surface/90 backdrop-blur-xl p-6 rounded-2xl shadow-2xl border border-white"
                   >
                     <div className="flex items-center gap-4">
                       <div className="p-3 bg-primary rounded-xl text-white shadow-lg shadow-primary/20">
                         <Star size={24} />
                       </div>
                       <div>
-                        <div className="text-2xl font-bold text-slate-900">
+                        <div className="text-2xl font-bold text-on-surface">
                           12+ Years
                         </div>
-                        <div className="text-sm text-slate-500 font-bold tracking-widest uppercase">
+                        <div className="text-sm text-on-surface/60 font-bold tracking-widest uppercase">
                           Excellence
                         </div>
                       </div>
@@ -350,7 +350,7 @@ const Home: React.FC = () => {
                   </span>
                 </h2>
 
-                <p className="text-lg md:text-xl text-slate-600 font-medium leading-relaxed italic">
+                <p className="text-lg md:text-xl text-on-surface/80 font-medium leading-relaxed italic">
                   "Established in the heart of Trichy, Zentonsz Beauty Parlour
                   has been a sanctuary for those seeking a touch of luxury and
                   professional care for over a decade."
@@ -367,7 +367,7 @@ const Home: React.FC = () => {
                       initial={{ opacity: 0, x: -20 }}
                       whileInView={{ opacity: 1, x: 0 }}
                       transition={{ delay: 0.4 + i * 0.1 }}
-                      className="flex items-center gap-3 text-slate-700 font-bold text-sm uppercase tracking-widest"
+                      className="flex items-center gap-3 text-on-surface/90 font-bold text-sm uppercase tracking-widest"
                     >
                       <div className="w-5 h-5 rounded-full bg-green-100 text-green-600 flex items-center justify-center">
                         <svg
@@ -419,11 +419,11 @@ const Home: React.FC = () => {
                   Our Full Portfolio
                 </span>
               </div>
-              <h2 className="text-4xl md:text-7xl font-black text-slate-900 mb-6 uppercase tracking-tighter italic font-serif">
+              <h2 className="text-4xl md:text-7xl font-black text-on-surface mb-6 uppercase tracking-tighter italic font-serif">
                 Everything You Need to <br className="hidden md:block" />
                 <span className="text-primary">Shine Brighter</span>
               </h2>
-              <p className="text-lg text-slate-500 max-w-2xl mx-auto font-medium">
+              <p className="text-lg text-on-surface/60 max-w-2xl mx-auto font-medium">
                 Explore our comprehensive collection of beauty therapies. From
                 bridal masterpieces to routine pampering.
               </p>
@@ -486,17 +486,17 @@ const Home: React.FC = () => {
       <section className="py-24 relative overflow-hidden bg-primary-container/20">
         <div className="max-w-5xl mx-auto px-6 relative z-10">
           <ScrollReveal>
-            <div className="bg-white/60 backdrop-blur-2xl border border-white rounded-[3rem] p-10 md:p-16 shadow-2xl text-center relative overflow-hidden">
+            <div className="bg-surface/60 backdrop-blur-2xl border border-white rounded-[3rem] p-10 md:p-16 shadow-2xl text-center relative overflow-hidden">
               <Quote
                 size={48}
                 className="text-primary opacity-20 mx-auto mb-6 relative z-10"
               />
 
-              <h3 className="text-3xl md:text-6xl font-black text-slate-900 mb-6 uppercase tracking-tighter italic font-serif relative z-10">
+              <h3 className="text-3xl md:text-6xl font-black text-on-surface mb-6 uppercase tracking-tighter italic font-serif relative z-10">
                 "Elegance is the beauty <br className="hidden md:block" /> that
                 never fades."
               </h3>
-              <p className="text-slate-600 text-lg md:text-xl font-medium max-w-2xl mx-auto mb-10 relative z-10">
+              <p className="text-on-surface/80 text-lg md:text-xl font-medium max-w-2xl mx-auto mb-10 relative z-10">
                 Step into a world of relaxation and luxury. Let our experts
                 craft the perfect look that reflects your true essence.
               </p>
