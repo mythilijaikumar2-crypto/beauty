@@ -1,11 +1,10 @@
 import React, { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { Sparkles, Star, Scissors, Droplets, Heart } from "lucide-react";
+import { Sparkles, Scissors, Heart, Droplets, Star } from "lucide-react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { CustomEase } from "gsap/CustomEase";
-import "./ServicesArchAnimation.css";
+import "./ServicesArch.css";
 
 // Assets
 import bridalImage from "../../assets/bridal_makeup.png";
@@ -15,7 +14,7 @@ import spaImage from "../../assets/spa_treatment.png";
 import makeupImage from "../../assets/makeup_artist.png";
 import nailImage from "../../assets/nail_art.png";
 
-gsap.registerPlugin(ScrollTrigger, CustomEase);
+gsap.registerPlugin(ScrollTrigger);
 
 interface Service {
   id: number;
@@ -97,7 +96,7 @@ const services: Service[] = [
   },
 ];
 
-const ServicesArchAnimation: React.FC = () => {
+const ServicesArch: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const rightColRef = useRef<HTMLDivElement>(null);
 
@@ -112,130 +111,118 @@ const ServicesArchAnimation: React.FC = () => {
     ];
 
     const ctx = gsap.context(() => {
-      const imgs = gsap.utils.toArray<HTMLImageElement>(".services-img-wrapper img");
+      const imgs = gsap.utils.toArray<HTMLImageElement>(
+        ".services-img-wrapper img",
+      );
 
-      ScrollTrigger.matchMedia({
-        "(min-width: 769px)": function () {
-          const mainTimeline = gsap.timeline({
-            scrollTrigger: {
-              trigger: ".services-arch",
-              start: "top top",
-              end: "bottom bottom",
-              pin: ".services-arch__right",
-              scrub: 1,
-              anticipatePin: 1,
-              fastScrollEnd: true,
-              preventOverlaps: true,
-            },
-          });
+      // MatchMedia for Desktop Pinned Animation
+      const mm = gsap.matchMedia();
 
-          gsap.set(imgs, { opacity: 0, scale: 1.1, objectPosition: "0px 0%" });
-          gsap.set(imgs[0], { opacity: 1, scale: 1 });
+      mm.add("(min-width: 769px)", () => {
+        const mainTimeline = gsap.timeline({
+          scrollTrigger: {
+            trigger: containerRef.current, // STABLE REF TRIGGER
+            start: "top top",
+            end: "bottom bottom",
+            pin: rightColRef.current, // STABLE REF PIN
+            scrub: 1,
+            anticipatePin: 1,
+          },
+        });
 
-          imgs.forEach((img, index) => {
-            const currentImage = img;
-            const nextImage = imgs[index + 1]
-              ? (imgs[index + 1] as HTMLImageElement)
-              : null;
+        gsap.set(imgs, { opacity: 0, scale: 1.1, objectPosition: "0px 0%" });
+        gsap.set(imgs[0], { opacity: 1, scale: 1 });
+
+        imgs.forEach((img, index) => {
+          const nextImage = imgs[index + 1] as HTMLImageElement;
+          if (nextImage) {
             const sectionTimeline = gsap.timeline();
-
-            if (nextImage) {
-              sectionTimeline
-                .to(
-                  "body",
-                  {
-                    backgroundColor: bgColors[index % bgColors.length],
-                    duration: 1.2,
-                    ease: "power1.inOut",
-                  },
-                  0,
-                )
-                .to(
-                  currentImage,
-                  {
-                    opacity: 0,
-                    scale: 0.9,
-                    objectPosition: "0px 60%",
-                    duration: 1.5,
-                    ease: "power1.inOut",
-                    force3D: true,
-                  },
-                  0,
-                )
-                .to(
-                  nextImage,
-                  {
-                    opacity: 1,
-                    scale: 1,
-                    objectPosition: "0px 40%",
-                    duration: 1.5,
-                    ease: "power1.inOut",
-                    force3D: true,
-                  },
-                  0,
-                );
-            }
-            mainTimeline.add(sectionTimeline);
-          });
-        },
-        "(max-width: 768px)": function () {
-          gsap.set(imgs, { objectPosition: "0px 60%" });
-          imgs.forEach((image, index) => {
-            gsap
-              .timeline({
-                scrollTrigger: {
-                  trigger: image as Element,
-                  start: "top-=70% top+=50%",
-                  end: "bottom+=200% bottom",
-                  scrub: true,
+            sectionTimeline
+              .to(
+                document.body,
+                {
+                  backgroundColor: bgColors[index % bgColors.length],
+                  duration: 1.2,
+                  ease: "power1.inOut",
                 },
-              })
-              .to(image as Element, {
-                objectPosition: "0px 30%",
-                duration: 5,
-                ease: "none",
-              })
-              .to("body", {
-                backgroundColor: bgColors[index % bgColors.length],
-                duration: 1.5,
-                ease: "power2.inOut",
-              });
-          });
-        },
+                0,
+              )
+              .to(
+                img,
+                {
+                  opacity: 0,
+                  scale: 0.9,
+                  objectPosition: "0px 60%",
+                  duration: 1.5,
+                  ease: "power1.inOut",
+                },
+                0,
+              )
+              .to(
+                nextImage,
+                {
+                  opacity: 1,
+                  scale: 1,
+                  objectPosition: "0px 40%",
+                  duration: 1.5,
+                  ease: "power1.inOut",
+                },
+                0,
+              );
+            mainTimeline.add(sectionTimeline);
+          }
+        });
       });
 
-      const handleMobileLayout = () => {
-        const isMobile = window.matchMedia("(max-width: 768px)").matches;
-        const leftItems = gsap.utils.toArray<HTMLElement>(".services-arch__info");
-        const rightItems = gsap.utils.toArray<HTMLElement>(".services-img-wrapper");
-        if (isMobile) {
-          leftItems.forEach(
-            (item, i) => (item.style.order = (i * 2).toString()),
-          );
-          rightItems.forEach(
-            (item, i) => (item.style.order = (i * 2 + 1).toString()),
-          );
-        } else {
-          leftItems.forEach((item) => (item.style.order = ""));
-          rightItems.forEach((item) => (item.style.order = ""));
-        }
-      };
+      mm.add("(max-width: 768px)", () => {
+        gsap.set(imgs, { objectPosition: "0px 60%" });
+        imgs.forEach((image, index) => {
+          gsap
+            .timeline({
+              scrollTrigger: {
+                trigger: image as Element,
+                start: "top-=70% top+=50%",
+                end: "bottom+=200% bottom",
+                scrub: true,
+              },
+            })
+            .to(image as Element, {
+              objectPosition: "0px 30%",
+              duration: 5,
+              ease: "none",
+            })
+            .to(document.body, {
+              backgroundColor: bgColors[index % bgColors.length],
+              duration: 1.5,
+              ease: "power2.inOut",
+            });
+        });
 
-      window.addEventListener("resize", handleMobileLayout);
-      handleMobileLayout();
-      return () => window.removeEventListener("resize", handleMobileLayout);
+        const leftItems = gsap.utils.toArray<HTMLElement>(
+          ".services-arch__info",
+        );
+        const rightItems = gsap.utils.toArray<HTMLElement>(
+          ".services-img-wrapper",
+        );
+        leftItems.forEach((item, i) => (item.style.order = (i * 2).toString()));
+        rightItems.forEach(
+          (item, i) => (item.style.order = (i * 2 + 1).toString()),
+        );
+      });
     }, containerRef);
 
-    return () => {
-      ctx.revert();
-    };
+    return () => ctx.revert();
   }, []);
 
   return (
     <div className="services-arch" ref={containerRef}>
       <div className="services-arch__left">
         {services.map((service, i) => (
-          <div key={service.id} className="services-arch__info" id={`info-${i}`}>
+          <div
+            key={service.id}
+            className="services-arch__info"
+            id={`info-${i}`}
+          >
             <div className="max-w-md w-full">
               <div className="flex items-center gap-3 sm:gap-4 mb-4 sm:mb-6">
                 <div className="p-2.5 sm:p-3 bg-primary text-white rounded-xl sm:rounded-2xl shadow-xl shadow-primary/20">
@@ -295,4 +282,4 @@ const ServicesArchAnimation: React.FC = () => {
   );
 };
 
-export default ServicesArchAnimation;
+export default ServicesArch;
